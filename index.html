@@ -826,6 +826,15 @@ main{padding-block:6px 20px}
 .panel.cyanbox h2::before{background:var(--p-cy)}
 .panel.cyanbox h2{color:var(--p-cy)}
 .panel.cyanbox p{font-size:15px;line-height:1.55}
+
+/* kpis em caixinha (grupos e meses) */
+.ugh .uv,.mmh .uv,.ugtot .uv{background:var(--p-card);border:1.5px solid var(--p-line);border-radius:10px;padding:7px 11px 6px;min-width:102px;box-shadow:0 1px 0 rgba(0,0,0,.04)}
+.ugh .uv .ul,.mmh .uv .ul,.ugtot .uv .ul{font-size:9.5px;letter-spacing:.04em;margin-bottom:3px;opacity:.9}
+.ugh .uv .un,.mmh .uv .un,.ugtot .uv .un{font-size:15px;letter-spacing:-.01em}
+.ugh,.mmh{gap:10px;padding:13px 14px}
+.ugh .ugn,.mmh .mmn2{padding-right:4px}
+.ugtot{gap:10px}
+@media (max-width:860px){.ugh,.mmh,.ugtot{grid-template-columns:1fr 1fr;gap:8px}.ugh .ugn,.mmh .mmn2{grid-column:1/-1}.ugh .ugcar,.mmh .ugcar{display:none}.ugh .uv,.mmh .uv,.ugtot .uv{min-width:0}}
 </style>
 
 <div class="top">Análise da fatura Unimed · IASM</div>
