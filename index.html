@@ -1539,9 +1539,44 @@ main{padding-block:6px 20px}
     ws['!cols']=widths.map(function(w){return {wch:w}});
     return ws;
   }
+  function buildSimExcel(){
+    var P=JSON.parse(document.getElementById('simdata').textContent);
+    var C=(function(){var e=document.getElementById('simcards-data');return e?JSON.parse(e.textContent):[];})();
+    var wb=XLSX.utils.book_new(), zf='"R$" #,##0';
+    function sheet(aoa,name,moneyCols,pctCols){
+      var ws=XLSX.utils.aoa_to_sheet(aoa),rng=XLSX.utils.decode_range(ws['!ref']);
+      for(var r=1;r<=rng.e.r;r++){
+        (moneyCols||[]).forEach(function(c){var k=XLSX.utils.encode_cell({r:r,c:c});if(ws[k]&&typeof ws[k].v==='number')ws[k].z=zf;});
+        (pctCols||[]).forEach(function(c){var k=XLSX.utils.encode_cell({r:r,c:c});if(ws[k]&&typeof ws[k].v==='number')ws[k].z='0.0%';});
+      }
+      ws['!cols']=aoa[0].map(function(_,i){var w=9;aoa.forEach(function(row){w=Math.max(w,String(row[i]==null?'':row[i]).length+2);});return {wch:Math.min(55,w)};});
+      XLSX.utils.book_append_sheet(wb,ws,name.slice(0,31));
+    }
+    var tr=P.tot.real;
+    sheet([['Cenário','Total das internações','Diferença vs 2026','Variação'],
+      ['Preço real 2026',tr,0,0],
+      ['Simulado a preço de 2024',P.tot.s24,P.tot.s24-tr,P.tot.s24/tr-1],
+      ['Simulado a preço de 2025',P.tot.s25,P.tot.s25-tr,P.tot.s25/tr-1]],'Resumo',[1,2],[3]);
+    var a=[['Tipo de cobrança','Real 2026','Simulado 2024','Diferença 2024','Simulado 2025','Diferença 2025']];
+    P.cats.forEach(function(c){a.push([c.cat+(c.honor?' (não alterado)':''),c.real,c.s24,c.s24-c.real,c.s25,c.s25-c.real]);});
+    a.push(['Total das internações',P.tot.real,P.tot.s24,P.tot.s24-P.tot.real,P.tot.s25,P.tot.s25-P.tot.real]);
+    sheet(a,'Por tipo de cobranca',[1,2,3,4,5]);
+    var b=[['Mês','Internações 2026','Internações sim 2024','Internações sim 2025','Fatura 2026','Fatura sim 2024','Fatura sim 2025']];
+    P.months.forEach(function(m){b.push([m.nome,m.int_real,m.int_s24,m.int_s25,m.fat_real,m.fat_s24,m.fat_s25]);});
+    sheet(b,'Por mes',[1,2,3,4,5,6]);
+    var d=[['Internação','Matrícula','Entrada','Hospital','Normal 2026','Simulado 2024','Dif 2024','Simulado 2025','Dif 2025']];
+    C.forEach(function(r){d.push([r[0],r[1],r[2],r[3],r[4],r[5],r[5]-r[4],r[6],r[6]-r[4]]);});
+    sheet(d,'Internacoes',[4,5,6,7,8]);
+    var e=[['Internação','Item','Tipo','Qtd','Normal 2026','Simulado 2024','Simulado 2025']];
+    C.forEach(function(r){(r[7]||[]).forEach(function(it){e.push([r[0],it[0],it[1],it[2],it[3],it[4],it[5]]);});});
+    sheet(e,'Itens por internacao',[4,5,6]);
+    var out=XLSX.write(wb,{bookType:'xlsx',type:'array'});
+    return saveBlob(curName()+'.xlsx',new Blob([out],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}));
+  }
   function exportExcel(btns){
     busy(btns,true,'Gerando...');
     return loadScript(LIBS.xlsx).then(function(){
+      if(curId==='simulacao'){return buildSimExcel();}
       var pg=curPage(),wb=XLSX.utils.book_new(),used={};
       var textRows=[[document.getElementById('abaTitulo').textContent.trim()],[]];
       [].slice.call(pg.querySelectorAll('.panel')).forEach(function(pn){
@@ -1576,6 +1611,7 @@ main{padding-block:6px 20px}
       var bg=getComputedStyle(document.body).getPropertyValue('--p-bg').trim()||'#080620',H=0,W=Math.max(aba.scrollWidth,1000);
       function prep(doc){
         [].slice.call(doc.querySelectorAll('.tools,.abafoot,.ptop .back,.nopdf')).forEach(function(e){e.style.display='none'});[].slice.call(doc.querySelectorAll('details')).forEach(function(d){d.open=true});[].slice.call(doc.querySelectorAll('.scroll')).forEach(function(e){e.style.overflow='visible'});
+        [].slice.call(doc.querySelectorAll('.panel h2')).forEach(function(h){h.style.display='block';h.style.letterSpacing='normal'});[].slice.call(doc.querySelectorAll('.simbtn')).forEach(function(b){b.style.letterSpacing='normal';b.style.fontFamily="'Manrope','Inter',system-ui,sans-serif"});
         var a=doc.getElementById('aba');a.style.padding='24px';a.style.background=bg;
         [].slice.call(doc.querySelectorAll('svg.ch *')).forEach(function(el){var cs=doc.defaultView.getComputedStyle(el),st='';['fill','stroke','stroke-width','stroke-linecap','stroke-linejoin','stroke-dasharray','stroke-dashoffset','fill-opacity','stroke-opacity','font-size','font-weight','font-family','text-anchor'].forEach(function(k){st+=k+':'+cs.getPropertyValue(k)+';'});el.setAttribute('style',st);el.style.filter='none'});
         [].slice.call(doc.querySelectorAll('.chwrap')).forEach(function(e){e.style.overflow='visible'});[].slice.call(doc.querySelectorAll('svg.ch')).forEach(function(e){e.removeAttribute('width');e.removeAttribute('height');e.style.width='100%';e.style.height='auto'});[].slice.call(doc.querySelectorAll('.sidetab')).forEach(function(e){e.style.display='none'});return a;
@@ -1726,6 +1762,7 @@ main{padding-block:6px 20px}
     // buttons
     [].forEach.call(page.querySelectorAll('.simbtn'),function(b){b.classList.toggle('on',b.dataset.yr===cur);});
     page.querySelector('#simColName').textContent=YS[cur];
+    (function(){var yl=cur==='real'?'2026':cur;var h1=page.querySelector('#simTCat thead th:nth-child(3)'),h2=page.querySelector('#simTMes thead th:nth-child(3)'),h3=page.querySelector('#simTFat thead th:nth-child(3)');if(h1)h1.textContent='Cenário '+yl;if(h2)h2.textContent='Cenário '+yl;if(h3)h3.textContent='Fatura '+yl;})();
     // KPI
     var tr=P.tot.real, ts=selVal({real:P.tot.real,s24:P.tot.s24,s25:P.tot.s25});
     page.querySelector('#simKvSel').textContent=n(ts);
