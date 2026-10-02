@@ -2198,7 +2198,9 @@ main{padding-block:6px 20px}
   }
   function renderRow(row){
     var mm=+row.dataset.m, term=row.querySelector('.mmq').value.trim(), shown=+row.dataset.shown||STEP;
-    var list=listFor(mm,term), slice=list.slice(0,shown), tb=row.querySelector('.mmtable tbody'),h='';
+    var list=listFor(mm,term);
+    if(mmonly){list=list.slice().sort(function(a,b){var am=Cc[a[1]][2],bm=Cc[b[1]][2];if(am!==bm)return bm-am;return b[3]-a[3];});}
+    var slice=list.slice(0,shown), tb=row.querySelector('.mmtable tbody'),h='';
     for(var i=0;i<slice.length;i++){var l=slice[i],p=Pp[l[0]],c=Cc[l[1]],sv=selOf(l),d=sv-l[3],cls=d<0?'dn':d>0?'up':'';
       h+='<tr><td class="l">'+esc(p[0])+'</td><td class="l">'+esc(p[1])+'</td><td>'+esc(c[0])+'</td><td class="l">'+esc(c[1])+'</td><td>'+n(l[3])+'</td><td>'+n(sv)+'</td><td class="df '+cls+'">'+(d===0?'—':sg(d))+'</td></tr>';}
     tb.innerHTML=h;
