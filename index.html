@@ -858,6 +858,24 @@ main{padding-block:6px 20px}
         </div>
         <div class="info"><div class="name">Parecer final<span class="sub">Todas as abas</span></div><span class="pill">Abrir</span></div>
       </button>
+      <button class="card" data-tone="ice" data-open="simulacao" aria-label="8ª aba, Simulação, abrir">
+        <span class="chip">8ª aba</span><span class="rim"></span>
+        <div class="art" aria-hidden="true">
+          <svg viewBox="0 0 180 180" fill="none" stroke-linejoin="round" stroke-linecap="round">
+            <defs>
+              <linearGradient id="gS1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#CFF6FF"/></linearGradient>
+              <linearGradient id="gS2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7DE8FF"/><stop offset="1" stop-color="#17A8D8"/></linearGradient>
+            </defs>
+            <g class="tag">
+              <rect x="42" y="24" width="96" height="132" rx="16" fill="url(#gS1)" stroke="#063447" stroke-width="7"/>
+              <rect x="58" y="40" width="64" height="30" rx="7" fill="url(#gS2)" stroke="#063447" stroke-width="6"/>
+              <circle cx="66" cy="94" r="7" fill="#063447"/><circle cx="90" cy="94" r="7" fill="#063447"/><circle cx="114" cy="94" r="7" fill="#063447"/>
+              <circle cx="66" cy="120" r="7" fill="#063447"/><circle cx="90" cy="120" r="7" fill="#063447"/><circle cx="114" cy="120" r="7" fill="#063447"/>
+            </g>
+          </svg>
+        </div>
+        <div class="info"><div class="name">Simulação<span class="sub">Internações 2026</span></div><span class="pill">Abrir</span></div>
+      </button>
     </div>
     <div class="hint" id="hint">Use as setas ou arraste para navegar</div>
     <button type="button" class="navarrow prev" aria-label="Aba anterior" data-k="ArrowLeft"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4l-8 8 8 8"/></svg></button>
@@ -1262,6 +1280,60 @@ main{padding-block:6px 20px}
     <p class="concl">A alta da fatura vem de mais atendimentos (R$ 3.126.598 de 3.258.779 em 2025) e, em 2026, também de atendimento mais caro (R$ 1.059.882 de 2.979.758). As vidas ficaram praticamente iguais.</p><p class="concl">As abas se ligam em cadeia: o preço da tabela e o uso formam o gasto por grupo, as internações e os medicamentos são partes desses grupos, e tudo soma a fatura.</p><p class="concl">Em 2025 os grupos que mais subiram foram taxas, diárias e gases e consultas, compensados em parte pela queda de medicamentos e materiais. Em 2026 a alta ficou mais espalhada, com internações e medicamentos crescendo acima da fatura.</p><p class="concl">Há pontos que só a Unimed pode confirmar e duas pendências de dados (medicamentos de 2024 e coparticipação). Os números não indicam, por si só, cobrança indevida.</p>
   </article>
 </div>
+<div class="abapage" data-aba="simulacao" hidden>
+  <p class="lead">E se as internações de 2026 fossem cobradas com os preços de 2024 ou de 2025? Aqui a gente mantém tudo de 2026 (as mesmas internações, as mesmas quantidades) e só troca o <b>preço</b> de medicamentos e materiais pelas tabelas oficiais da Unimed, e o preço dos demais itens pela tabela de referência de cada ano. Os <b>honorários médicos não são alterados</b>.</p>
+
+  <article class="panel">
+    <h2>Escolha o cenário</h2>
+    <p class="sub2">Clique num ano para recalcular na hora. "Preço real 2026" é o valor que foi de fato cobrado.</p>
+    <div class="simctl">
+      <button type="button" class="simbtn on" data-yr="real">Preço real 2026</button>
+      <button type="button" class="simbtn" data-yr="2024">Simular a preço de 2024</button>
+      <button type="button" class="simbtn" data-yr="2025">Simular a preço de 2025</button>
+    </div>
+    <div class="simkpis">
+      <div class="simkpi"><div class="kl">Internações 2026 (real)</div><div class="kv">R$ 7.868.038</div><div class="ks">822 internações, jan a ago</div></div>
+      <div class="simkpi" id="simkpiSel"><div class="kl">No cenário escolhido</div><div class="kv" id="simKvSel">R$ 7.868.038</div><div class="ks" id="simKsSel">preço real de 2026</div></div>
+      <div class="simkpi" id="simkpiDif"><div class="kl">Diferença</div><div class="kv" id="simKvDif">R$ 0</div><div class="ks" id="simKsDif">mesmo valor</div></div>
+    </div>
+    <p class="simnote" id="simAdendo"></p>
+  </article>
+
+  <article class="panel">
+    <h2>Por tipo de cobrança</h2>
+    <p class="sub2">Quanto cada tipo de item custou em 2026 e quanto custaria no cenário escolhido. <span id="simColName">Preço real 2026</span> na coluna "Cenário".</p>
+    <div class="scroll"><table class="grid" id="simTCat"><thead><tr><th class="l">Tipo de cobrança</th><th>Real 2026</th><th>Cenário</th><th>Diferença</th></tr></thead><tbody><tr data-cat="Diárias, taxas e gases"><td class="l">Diárias, taxas e gases</td><td class="simreal">R$ 3.889.962</td><td class="simsel">R$ 3.889.962</td><td class="simdiff"></td></tr><tr data-cat="Procedimentos e honorários"><td class="l">Procedimentos e honorários <small>(não alterado)</small></td><td class="simreal">R$ 1.442.187</td><td class="simsel">R$ 1.442.187</td><td class="simdiff"></td></tr><tr data-cat="Materiais"><td class="l">Materiais</td><td class="simreal">R$ 1.081.870</td><td class="simsel">R$ 1.081.870</td><td class="simdiff"></td></tr><tr data-cat="Medicamentos"><td class="l">Medicamentos</td><td class="simreal">R$ 620.540</td><td class="simsel">R$ 620.540</td><td class="simdiff"></td></tr><tr data-cat="Consultas e visitas"><td class="l">Consultas e visitas</td><td class="simreal">R$ 425.354</td><td class="simsel">R$ 425.354</td><td class="simdiff"></td></tr><tr data-cat="Exames"><td class="l">Exames</td><td class="simreal">R$ 149.254</td><td class="simsel">R$ 149.254</td><td class="simdiff"></td></tr><tr data-cat="Dietas e terapias"><td class="l">Dietas e terapias</td><td class="simreal">R$ 20.729</td><td class="simsel">R$ 20.729</td><td class="simdiff"></td></tr><tr data-cat="Outros"><td class="l">Outros</td><td class="simreal">R$ 238.142</td><td class="simsel">R$ 238.142</td><td class="simdiff"></td></tr><tr class="key"><td class="l">Total das internações</td><td class="simrealT">R$ 7.868.038</td><td class="simselT">R$ 7.868.038</td><td class="simdiffT"></td></tr></tbody></table></div>
+    <p class="legend">Medicamentos e materiais usam o preço das tabelas oficiais da Unimed (Preço/Valor Máximo Intercâmbio) de 2024 e 2025. Diárias, taxas, gases, exames, consultas, dietas e outros usam a tabela de referência de cada ano. Procedimentos e honorários médicos ficam no valor de 2026.</p>
+  </article>
+
+  <article class="panel">
+    <h2>Internações mês a mês</h2>
+    <p class="sub2">O gasto com internações em cada mês de 2026 e quanto seria no cenário escolhido.</p>
+    <div class="scroll"><table class="grid" id="simTMes"><thead><tr><th class="l">Mês</th><th>Real 2026</th><th>Cenário</th><th>Diferença</th></tr></thead><tbody><tr data-m="1"><td class="l">Jan</td><td class="simreal">R$ 862.334</td><td class="simsel">R$ 862.334</td><td class="simdiff"></td></tr><tr data-m="2"><td class="l">Fev</td><td class="simreal">R$ 776.111</td><td class="simsel">R$ 776.111</td><td class="simdiff"></td></tr><tr data-m="3"><td class="l">Mar</td><td class="simreal">R$ 758.009</td><td class="simsel">R$ 758.009</td><td class="simdiff"></td></tr><tr data-m="4"><td class="l">Abr</td><td class="simreal">R$ 884.402</td><td class="simsel">R$ 884.402</td><td class="simdiff"></td></tr><tr data-m="5"><td class="l">Mai</td><td class="simreal">R$ 862.511</td><td class="simsel">R$ 862.511</td><td class="simdiff"></td></tr><tr data-m="6"><td class="l">Jun</td><td class="simreal">R$ 1.218.639</td><td class="simsel">R$ 1.218.639</td><td class="simdiff"></td></tr><tr data-m="7"><td class="l">Jul</td><td class="simreal">R$ 1.505.712</td><td class="simsel">R$ 1.505.712</td><td class="simdiff"></td></tr><tr data-m="8"><td class="l">Ago</td><td class="simreal">R$ 1.000.320</td><td class="simsel">R$ 1.000.320</td><td class="simdiff"></td></tr><tr class="key"><td class="l">Total jan a ago</td><td class="simrealTM">R$ 7.868.038</td><td class="simselTM">R$ 7.868.038</td><td class="simdiffTM"></td></tr></tbody></table></div>
+  </article>
+
+  <article class="panel">
+    <h2>Fatura do mês com os preços simulados</h2>
+    <p class="sub2">A fatura cheia que o IASM pagou em cada mês, e quanto ela ficaria se as internações daquele mês fossem pelos preços do cenário escolhido. Só a parte de internações muda; o resto da fatura fica igual.</p>
+    <div class="scroll"><table class="grid" id="simTFat"><thead><tr><th class="l">Mês</th><th>Fatura real 2026</th><th>Fatura no cenário</th><th>Diferença</th></tr></thead><tbody><tr data-fm="1"><td class="l">Jan</td><td class="simrealf">R$ 2.539.454</td><td class="simself">R$ 2.539.454</td><td class="simdifff"></td></tr><tr data-fm="2"><td class="l">Fev</td><td class="simrealf">R$ 2.486.153</td><td class="simself">R$ 2.486.153</td><td class="simdifff"></td></tr><tr data-fm="3"><td class="l">Mar</td><td class="simrealf">R$ 2.522.526</td><td class="simself">R$ 2.522.526</td><td class="simdifff"></td></tr><tr data-fm="4"><td class="l">Abr</td><td class="simrealf">R$ 2.780.640</td><td class="simself">R$ 2.780.640</td><td class="simdifff"></td></tr><tr data-fm="5"><td class="l">Mai</td><td class="simrealf">R$ 2.349.775</td><td class="simself">R$ 2.349.775</td><td class="simdifff"></td></tr><tr data-fm="6"><td class="l">Jun</td><td class="simrealf">R$ 2.990.686</td><td class="simself">R$ 2.990.686</td><td class="simdifff"></td></tr><tr data-fm="7"><td class="l">Jul</td><td class="simrealf">R$ 3.282.190</td><td class="simself">R$ 3.282.190</td><td class="simdifff"></td></tr><tr data-fm="8"><td class="l">Ago</td><td class="simrealf">R$ 2.690.242</td><td class="simself">R$ 2.690.242</td><td class="simdifff"></td></tr><tr class="key"><td class="l">Total jan a ago</td><td class="simrealTF">R$ 21.641.666</td><td class="simselTF">R$ 21.641.666</td><td class="simdiffTF"></td></tr></tbody></table></div>
+    <p class="legend">A fatura de jan a ago de 2026 foi de <b>R$ 21.641.666</b>. As internações são <b>R$ 7.868.038</b> dela (36,4%). No cenário escolhido, a diferença mostrada é só o quanto a fatura cairia (ou subiria) por causa do preço das internações.</p>
+  </article>
+
+  <article class="panel green">
+    <h2>Resumo da simulação</h2>
+    <div class="sumgrid">
+      <div><h3>A preço de 2024</h3><p>As internações de 2026 (R$ 7.868.038) cairiam para <b>R$ 5.825.284</b>, uma diferença de <b>R$ 2.042.754</b> (-26.0%).</p></div>
+      <div><h3>A preço de 2025</h3><p>Cairiam para <b>R$ 7.744.412</b>, uma diferença de <b>R$ 123.626</b> (-1.6%).</p></div>
+      <div><h3>O que mais pesa</h3><p>O grupo de diárias, taxas e gases é o que mais muda: de R$ 3.889.962 para R$ 2.014.722 a preço de 2024.</p></div>
+      <div><h3>Honorários</h3><p>Os honorários médicos (R$ 1.442.187) ficam iguais nos três cenários, porque não entram na troca de preço.</p></div>
+    </div>
+  </article>
+
+  <article class="panel yellow">
+    <h2>Conclusões finais</h2>
+    <p class="concl">Esta é uma <b>simulação</b>, não a fatura real. Ela mostra quanto do valor das internações de 2026 vem do preço dos itens, mantendo as mesmas quantidades. Alguns códigos de 2026 não existem nas tabelas de 2024 ou 2025 (itens novos ou códigos antigos): nesses casos o preço de 2026 foi mantido e contado como adendo (veja o aviso no topo). Qualquer uso disso junto à Unimed precisa da confirmação deles sobre os preços de cada tabela.</p>
+  </article>
+</div>
 <div class="dashpage" data-dash="precos-unitarios" hidden>
   <p class="lead">Os números principais da tabela de preços unitários (o preço de cada código de procedimento, medicamento e material), comparando 2024 com 2025 e 2025 com 2026. Cada cartão explica o que o número significa.</p>
   <div class="kgrid"><div class="kpi k-pur"><svg class="kic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l6-6 4 4 8-9"/><path d="M15 6h6v6"/></svg><div class="kl">Aumento mediano de preço, 2024 → 2025</div><div class="kv">7,78%</div><div class="kd">Média dos aumentos: 14,34%</div><div class="kx">Mediana é o aumento do código que fica no meio quando ordenamos todos, do menor ao maior aumento. Metade dos códigos subiu menos que 7,78% e metade subiu mais.</div></div><div class="kpi k-mag"><svg class="kic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l6-6 4 4 8-9"/><path d="M15 6h6v6"/></svg><div class="kl">Aumento mediano de preço, 2025 → 2026</div><div class="kv">8,33%</div><div class="kd">Média dos aumentos: 4,15%</div><div class="kx">Metade dos códigos subiu menos que 8,33% e metade subiu mais. A média ficou bem menor porque muitos códigos tiveram queda de preço.</div></div><div class="kpi k-cy"><svg class="kic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V11M10 20V4M16 20v-7M2 20h20"/></svg><div class="kl">Códigos que ficaram mais caros em 2025</div><div class="kv">4.512</div><div class="kd">97,9% dos 4.609 códigos comparáveis</div><div class="kx">Comparáveis são os códigos que existem na tabela de 2024 e na de 2025 com preço maior que zero. Quase todos subiram.</div></div><div class="kpi k-grn"><svg class="kic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V11M10 20V4M16 20v-7M2 20h20"/></svg><div class="kl">Códigos que ficaram mais caros em 2026</div><div class="kv">7.657</div><div class="kd">60,7% dos 12.621 códigos comparáveis</div><div class="kx">Em 2026 a alta ficou mais espalhada: 7.657 códigos subiram, 2.250 caíram e 2.714 ficaram com o mesmo preço.</div></div><div class="kpi k-yel"><svg class="kic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5"/><circle cx="7" cy="7.5" r="2.2"/><circle cx="17" cy="16.5" r="2.2"/></svg><div class="kl">Códigos que ficaram mais baratos em 2026</div><div class="kv">2.250</div><div class="kd">17,8% dos comparáveis</div><div class="kx">Quase todos são procedimentos (2.249). Medicamentos, materiais e dietas só subiram.</div></div><div class="kpi k-red"><svg class="kic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 22 20.5H2z"/><path d="M12 10v5M12 18v.5"/></svg><div class="kl">Códigos com aumento acima de 100% em 2025</div><div class="kv">260</div><div class="kd">de 4.609 códigos comparáveis</div><div class="kx">São códigos que mais que dobraram de preço de 2024 para 2025. Eles puxam a média para cima.</div></div></div>
@@ -1349,7 +1421,7 @@ main{padding-block:6px 20px}
     try{history.replaceState(null,'','#'+id)}catch(e){}
   }
 
-  var ABAT={'precos-unitarios':['Preços unitários','1ª aba'],'fatura':['Fatura','2ª aba'],'uso':['Uso','3ª aba'],'utilizacoes':['Utilizações','4ª aba'],'internacoes':['Internações','5ª aba'],'medicamentos':['Medicamentos','6ª aba'],'parecer':['Parecer final','7ª aba']};
+  var ABAT={'precos-unitarios':['Preços unitários','1ª aba'],'fatura':['Fatura','2ª aba'],'uso':['Uso','3ª aba'],'utilizacoes':['Utilizações','4ª aba'],'internacoes':['Internações','5ª aba'],'medicamentos':['Medicamentos','6ª aba'],'parecer':['Parecer final','7ª aba'],'simulacao':['Simulação','8ª aba']};
   function goAba(e){var t=e.target.closest&&e.target.closest('[data-go]');if(!t)return;var k=t.getAttribute('data-go');if(ABAT[k]){e.preventDefault();openAba(k,ABAT[k][0],ABAT[k][1])}}
   document.addEventListener('click',goAba);document.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' ')goAba(e)});
   var LIBS={xlsx:'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js',h2c:'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js',pdf:'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'};
@@ -1489,6 +1561,7 @@ main{padding-block:6px 20px}
   if(location.hash==='#utilizacoes'){stop();active=3;render();openAba('utilizacoes','Utilizações','4ª aba')}
   if(location.hash==='#uso'){stop();active=2;render();openAba('uso','Uso','3ª aba')}
   if(location.hash==='#fatura'){stop();active=1;render();openAba('fatura','Fatura','2ª aba')}
+  if(location.hash==='#simulacao'){stop();active=7;render();openAba('simulacao','Simulação','8ª aba')}
 })();
 
 (function(){
@@ -1548,3 +1621,79 @@ main{padding-block:6px 20px}
 
 (function(){var b=document.getElementById('icjump');if(b)b.addEventListener('click',function(){var t=document.getElementById('intcards');if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})})();
 </script>
+
+<script type="application/json" id="simdata">{"tot":{"real":7868037.945,"s24":5825284.373568401,"s25":7744412.308812},"cats":[{"cat":"Diárias, taxas e gases","real":3889961.501,"s24":2014721.8637114,"s25":3926844.068,"honor":false},{"cat":"Procedimentos e honorários","real":1442187.311,"s24":1442187.311,"s25":1442187.311,"honor":true},{"cat":"Materiais","real":1081870.1770000001,"s24":1057944.78374,"s25":1051107.3413,"honor":false},{"cat":"Medicamentos","real":620540.2949999999,"s24":558265.728477,"s25":504828.364472,"honor":false},{"cat":"Consultas e visitas","real":425353.617,"s24":383465.61000000004,"s25":413290.713,"honor":false},{"cat":"Exames","real":149254.435,"s24":118417.84064000001,"s25":168149.70304,"honor":false},{"cat":"Dietas e terapias","real":20728.908000000003,"s24":20728.908000000003,"s25":19490.559,"honor":false},{"cat":"Outros","real":238141.701,"s24":229552.328,"s25":218514.249,"honor":false}],"months":[{"m":1,"nome":"Jan","int_real":862333.638,"int_s24":647402.67311704,"int_s25":863465.991498,"fat_real":2539453.69,"fat_s24":2324522.72511704,"fat_s25":2540586.043498},{"m":2,"nome":"Fev","int_real":776110.696,"int_s24":570236.8720874,"int_s25":770115.231324,"fat_real":2486153.11,"fat_s24":2280279.2860874,"fat_s25":2480157.645324},{"m":3,"nome":"Mar","int_real":758009.4950000001,"int_s24":552034.5995882,"int_s25":745932.565012,"fat_real":2522526.09,"fat_s24":2316551.1945881997,"fat_s25":2510449.160012},{"m":4,"nome":"Abr","int_real":884401.9389999999,"int_s24":662821.2552372401,"int_s25":866987.074096,"fat_real":2780639.71,"fat_s24":2559059.02623724,"fat_s25":2763224.845096},{"m":5,"nome":"Mai","int_real":862510.9090000001,"int_s24":608627.80834852,"int_s25":828590.7909479999,"fat_real":2349774.86,"fat_s24":2095891.7593485196,"fat_s25":2315854.7419479997},{"m":6,"nome":"Jun","int_real":1218639.29,"int_s24":957462.61173776,"int_s25":1218427.6224600002,"fat_real":2990686.49,"fat_s24":2729509.81173776,"fat_s25":2990474.8224600004},{"m":7,"nome":"Jul","int_real":1505712.3480000002,"int_s24":1127346.28920436,"int_s25":1476077.393618,"fat_real":3282189.6129996995,"fat_s24":2903823.5542040593,"fat_s25":3252554.6586176995},{"m":8,"nome":"Ago","int_real":1000319.6300000001,"int_s24":699352.2642478801,"int_s25":974815.639856,"fat_real":2690242.2819996164,"fat_s24":2389274.9162474964,"fat_s25":2664738.2918556165}],"adendo":{"2024":{"lin":3046,"val":1296319.575},"2025":{"lin":1893,"val":1156635.052}},"nlines":96664,"nintern":822}</script>
+<script>
+(function(){
+  var el=document.getElementById('simdata'); if(!el) return;
+  var P=JSON.parse(el.textContent);
+  function n(x){return 'R$ '+Math.round(x).toLocaleString('pt-BR');}
+  function sg(x){return (x>0?'+':x<0?'-':'')+'R$ '+Math.round(Math.abs(x)).toLocaleString('pt-BR');}
+  var YL={real:'preço real de 2026','2024':'a preço de 2024','2025':'a preço de 2025'};
+  var YS={real:'Preço real 2026','2024':'Preço de 2024','2025':'Preço de 2025'};
+  function selVal(o){ return cur==='real'?o.real:(cur==='2024'?o.s24:o.s25); }
+  var cur='real';
+  function diffCell(real,sel){
+    var d=sel-real; var cls=d<0?'dn':d>0?'up':'';
+    return {txt:(d===0?'—':sg(d)),cls:cls};
+  }
+  function paint(){
+    var page=document.querySelector('.abapage[data-aba="simulacao"]'); if(!page) return;
+    // buttons
+    [].forEach.call(page.querySelectorAll('.simbtn'),function(b){b.classList.toggle('on',b.dataset.yr===cur);});
+    page.querySelector('#simColName').textContent=YS[cur];
+    // KPI
+    var tr=P.tot.real, ts=selVal({real:P.tot.real,s24:P.tot.s24,s25:P.tot.s25});
+    page.querySelector('#simKvSel').textContent=n(ts);
+    page.querySelector('#simKsSel').textContent=YL[cur];
+    var d=ts-tr; var kd=page.querySelector('#simKvDif'); kd.textContent=(d===0?'R$ 0':sg(d));
+    kd.className='kv '+(d<0?'dn':d>0?'up':'');
+    page.querySelector('#simKsDif').textContent=(d===0?'mesmo valor':(d<0?'mais barato que 2026':'mais caro que 2026')+' ('+((ts/tr-1)*100).toFixed(1).replace('.',',')+'%)');
+    // adendo
+    var ad=P.adendo[cur]; var an=page.querySelector('#simAdendo');
+    if(cur==='real'||!ad){an.textContent='';an.style.display='none';}
+    else{an.style.display='';an.innerHTML='<b>Adendo:</b> '+ad.lin.toLocaleString('pt-BR')+' linhas (R$ '+Math.round(ad.val).toLocaleString('pt-BR')+') não têm preço na tabela de '+cur+' e foram mantidas no valor de 2026.';}
+    // cat table
+    var ct=0;
+    [].forEach.call(page.querySelectorAll('#simTCat tbody tr[data-cat]'),function(row){
+      var cat=row.dataset.cat; var o=P.cats.filter(function(c){return c.cat===cat;})[0]; if(!o)return;
+      var v=selVal(o); row.querySelector('.simsel').textContent=n(v);
+      var dc=diffCell(o.real,v); var td=row.querySelector('.simdiff'); td.textContent=dc.txt; td.className='simdiff '+dc.cls;
+      ct+=v;
+    });
+    setTot(page,'#simTCat','.simselT','.simdiffT',P.tot.real,ct);
+    // mes table
+    var mt=0;
+    [].forEach.call(page.querySelectorAll('#simTMes tbody tr[data-m]'),function(row){
+      var m=+row.dataset.m; var o=P.months.filter(function(x){return x.m===m;})[0]; if(!o)return;
+      var oo={real:o.int_real,s24:o.int_s24,s25:o.int_s25}; var v=selVal(oo);
+      row.querySelector('.simsel').textContent=n(v);
+      var dc=diffCell(o.int_real,v); var td=row.querySelector('.simdiff'); td.textContent=dc.txt; td.className='simdiff '+dc.cls; mt+=v;
+    });
+    setTot(page,'#simTMes','.simselTM','.simdiffTM',P.tot.real,mt);
+    // fatura table
+    var fr=0,fsum=0;
+    [].forEach.call(page.querySelectorAll('#simTFat tbody tr[data-fm]'),function(row){
+      var m=+row.dataset.fm; var o=P.months.filter(function(x){return x.m===m;})[0]; if(!o)return;
+      var oo={real:o.fat_real,s24:o.fat_s24,s25:o.fat_s25}; var v=selVal(oo);
+      row.querySelector('.simself').textContent=n(v);
+      var dc=diffCell(o.fat_real,v); var td=row.querySelector('.simdifff'); td.textContent=dc.txt; td.className='simdifff '+dc.cls;
+      fr+=o.fat_real; fsum+=v;
+    });
+    var rowF=page.querySelector('#simTFat tbody tr.key');
+    rowF.querySelector('.simselTF').textContent=n(fsum);
+    var dcf=diffCell(fr,fsum); var tdf=rowF.querySelector('.simdiffTF'); tdf.textContent=dcf.txt; tdf.className='simdiffTF '+dcf.cls;
+  }
+  function setTot(page,tbl,selSel,difSel,real,sum){
+    var row=page.querySelector(tbl+' tbody tr.key'); if(!row)return;
+    row.querySelector(selSel).textContent=n(sum);
+    var d=sum-real; var td=row.querySelector(difSel); td.textContent=(d===0?'—':sg(d)); td.className=difSel.slice(1)+' '+(d<0?'dn':d>0?'up':'');
+  }
+  document.addEventListener('click',function(e){
+    var b=e.target.closest&&e.target.closest('.simbtn'); if(!b)return;
+    cur=b.dataset.yr; paint();
+  });
+  paint();
+})();
+</script>
+
