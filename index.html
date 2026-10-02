@@ -639,13 +639,39 @@ body:not(.in-aba) #menu,body:not(.in-aba) #menu *:not(.card):not(.card *){color:
 /* ===== logo 3d ===== */
 .logo3d{position:fixed;top:10px;right:14px;z-index:5;width:clamp(96px,14vw,170px);pointer-events:none;filter:drop-shadow(0 8px 18px rgba(0,0,0,.6))}
 .logo3d img{display:block;width:100%;height:auto}
+
+/* ===== cards maiores e logo no topo ===== */
+#menu .stage{--cw:clamp(204px,60vw,340px);max-width:1100px}
+.logo3d{position:static!important;display:block;width:clamp(120px,15vw,190px)!important;margin:0 auto 2px;filter:drop-shadow(0 10px 22px rgba(0,0,0,.65))}
+.menuintro{margin-top:0;margin-bottom:10px}
+
+.menuintro{max-width:900px}
+.menuintro h1{font-size:clamp(22px,3vw,32px)}
+.menuintro p{font-size:clamp(13.5px,1.35vw,15.5px);line-height:1.5}
+.logo3d{width:clamp(120px,13vw,170px)!important}
+
+/* ===== setas do carrossel ===== */
+.navarrow{position:fixed;top:56%;transform:translateY(-50%);z-index:6;width:60px;height:60px;border-radius:50%;border:2px solid rgba(255,255,255,.8);background:rgba(0,0,0,.55);backdrop-filter:blur(6px);cursor:pointer;display:grid;place-items:center;padding:0;box-shadow:0 6px 20px rgba(0,0,0,.6);transition:background .15s var(--ease),border-color .15s var(--ease),scale .15s var(--ease)}
+.navarrow svg{width:30px;height:30px;fill:none;stroke:#fff;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round}
+.navarrow.prev{left:clamp(8px,3vw,40px);animation:navL 1.6s ease-in-out infinite}
+.navarrow.next{right:clamp(8px,3vw,40px);animation:navR 1.6s ease-in-out infinite}
+.navarrow:hover{background:#e0121f;border-color:#fff;scale:1.08;animation-play-state:paused}
+.navarrow:active{scale:.94}
+@keyframes navL{0%,100%{transform:translate(0,-50%)}50%{transform:translate(-8px,-50%)}}
+@keyframes navR{0%,100%{transform:translate(0,-50%)}50%{transform:translate(8px,-50%)}}
+@media (max-width:520px){.navarrow{width:46px;height:46px;top:50%}.navarrow svg{width:24px;height:24px}}
+@media (prefers-reduced-motion:reduce){.navarrow{animation:none!important}}
+
+.logo3d{width:clamp(104px,11vw,140px)!important;margin-bottom:0}
+.menuintro p{font-size:clamp(13px,1.2vw,14.5px)}
+main{padding-block:6px 20px}
 </style>
 
 <div class="top">Análise da fatura Unimed · IASM</div>
 <main>
   <section id="menu" aria-label="Menu de tópicos">
-    <picture class="logo3d"><source media="(prefers-reduced-motion: reduce)" srcset="assets/logo-iasm-3d-fixo.webp"><img src="assets/logo-iasm-3d.webp" alt="Logo do IASM em 3D, girando devagar" width="360" height="360" decoding="async"></picture>
     <div class="menuintro">
+      <picture class="logo3d"><source media="(prefers-reduced-motion: reduce)" srcset="assets/logo-iasm-3d-fixo.webp"><img src="assets/logo-iasm-3d.webp" alt="Logo do IASM em 3D, girando devagar" width="360" height="360" decoding="async"></picture>
       <h1>Por que a fatura da Unimed ao IASM sobe</h1>
       <p>Este relatório compara a fatura de 2024 com a de 2025 (anos inteiros) e a de janeiro a agosto de 2025 com a de janeiro a agosto de 2026. Cada card abre uma aba: os preços da tabela, a fatura mês a mês, o uso do plano, o gasto por grupo, as internações e os medicamentos. A última aba junta tudo no parecer final.</p>
     </div>
@@ -819,6 +845,8 @@ body:not(.in-aba) #menu,body:not(.in-aba) #menu *:not(.card):not(.card *){color:
       </button>
     </div>
     <div class="hint" id="hint">Use as setas ou arraste para navegar</div>
+    <button type="button" class="navarrow prev" aria-label="Aba anterior" data-k="ArrowLeft"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4l-8 8 8 8"/></svg></button>
+    <button type="button" class="navarrow next" aria-label="Próxima aba" data-k="ArrowRight"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4l8 8-8 8"/></svg></button>
     <div class="menucred">Dados coletados e análise feita por <b>Gabriel Luiz Vieira Lemos</b></div>
   </section>
 
@@ -1479,5 +1507,11 @@ body:not(.in-aba) #menu,body:not(.in-aba) #menu *:not(.card):not(.card *){color:
   more.addEventListener('click',function(){shown+=STEP;draw()});
   var tm;q.addEventListener('input',function(){clearTimeout(tm);tm=setTimeout(filt,200)});y.addEventListener('change',filt);f.addEventListener('change',filt);
   filt();
+})();
+
+(function(){
+  [].slice.call(document.querySelectorAll('.navarrow')).forEach(function(b){
+    b.addEventListener('click',function(e){e.stopPropagation();document.dispatchEvent(new KeyboardEvent('keydown',{key:b.dataset.k,bubbles:true}))});
+  });
 })();
 </script>
